@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Important Question 🥺</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #ffe4ed,
+                #eee5ff,
+                #e1f4ff
+            );
+
+            color: #403641;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 500px;
+            min-height: 550px;
+
+            padding: 40px 25px;
+
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 20px 60px rgba(70, 40, 70, 0.18);
+
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .emoji {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 0 0 15px;
+        }
+
+        .question {
+            font-size: 23px;
+            font-weight: bold;
+            line-height: 1.5;
+
+            margin-bottom: 10px;
+        }
+
+        .subtext {
+            font-size: 16px;
+            opacity: 0.65;
+        }
+
+        .button-area {
+            position: relative;
+
+            width: 100%;
+            max-width: 380px;
+            height: 210px;
+
+            margin-top: 25px;
+
+            border-radius: 25px;
+
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        button {
+            border: none;
+
+            padding: 14px 24px;
+
+            border-radius: 50px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(70, 45, 70, 0.15);
+        }
+
+        #yesButton {
+            position: absolute;
+
+            left: 18%;
+            top: 80px;
+
+            background: #d85f8b;
+            color: white;
+        }
+
+        #noButton {
+            position: absolute;
+
+            left: 60%;
+            top: 80px;
+
+            background: white;
+            color: #493d48;
+
+            transition:
+                left 0.2s ease,
+                top 0.2s ease;
+        }
+
+        #result {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,0.9);
+
+            font-size: 19px;
+            font-weight: bold;
+
+            line-height: 1.6;
+        }
+
+        .tiny {
+            margin-top: 18px;
+            font-size: 13px;
+            opacity: 0.55;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="emoji" id="emoji">
+        🥺
+    </div>
+
+    <h1>
+        One very important question...
+    </h1>
+
+    <!-- THIS QUESTION NEVER CHANGES -->
+    <div class="question">
+        Am I your favourite idiot? 😭❤️
+    </div>
+
+    <div class="subtext">
+        Be honest. 👀
+    </div>
+
+    <div class="button-area" id="buttonArea">
+
+        <button
+            id="yesButton"
+            onclick="yesClicked()">
+            YES ❤️
+        </button>
+
+        <button
+            id="noButton"
+            onclick="noClicked()"
+            onmouseenter="moveNoButton()"
+            ontouchstart="moveNoButton()">
+            NO 😭
+        </button>
+
+    </div>
+
+    <div id="result"></div>
+
+    <div class="tiny">
+        P.S. The NO button seems suspicious... 👀
+    </div>
+
+</div>
+
+
+<script>
+
+    /* These are the texts the NO button will change into */
+
+    const noTexts = [
+        "Are you sure? 👀",
+        "Really? 😭",
+        "Think again 🥺",
+        "Nice try 😂",
+        "Nope, try again 😭",
+        "You can't escape this 😂",
+        "Just say YES already 😭",
+        "Okay fine... NO 😔"
+    ];
+
+    let noClicks = 0;
+
+
+    /* Runs when she actually manages to click the NO button */
+
+    function noClicked() {
+
+        noClicks++;
+
+        if (noClicks < noTexts.length) {
+
+            document.getElementById("noButton")
+                .textContent = noTexts[noClicks - 1];
+
+        } else {
+
+            document.getElementById("noButton")
+                .textContent = "Okay I'm done 😭";
+
+        }
+
+        moveNoButton();
+    }
+
+
+    /* Makes the NO button run away */
+
+    function moveNoButton() {
+
+        const area =
+            document.getElementById("buttonArea");
+
+        const noButton =
+            document.getElementById("noButton");
+
+        const maxX =
+            area.clientWidth -
+            noButton.offsetWidth -
+            10;
+
+        const maxY =
+            area.clientHeight -
+            noButton.offsetHeight -
+            10;
+
+        const randomX =
+            Math.random() * maxX;
+
+        const randomY =
+            Math.random() * maxY;
+
+        noButton.style.left =
+            randomX + "px";
+
+        noButton.style.top =
+            randomY + "px";
+    }
+
+
+    /* What happens when YES is clicked */
+
+    function yesClicked() {
+
+        document.getElementById("buttonArea")
+            .style.display = "none";
+
+        document.getElementById("emoji")
+            .textContent = "😭❤️";
+
+        document.getElementById("result")
+            .style.display = "block";
+
+        document.getElementById("result")
+            .innerHTML =
+            "I KNEW IT 😭❤️<br><br>" +
+            "Finally, the correct answer. <br><br>" +
+            "Okay, you win. 🫶";
+    }
+
+</script>
+
+</body>
+</html>
